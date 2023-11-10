@@ -4,44 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Dogs</title>
-    <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        h1 {
-            text-align: center;
-        }
-        main div {
-            display: flex;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-        img {
-            width: fit-content;
-            max-width: 30%;
-            border-radius: 8px;
-            object-fit: contain;
-        }
-        button {
-            display: block;
-            margin: 0 auto;
-            width: 150px;
-            height: 40px;
-            margin-top: 30px;
-            border-radius: 8px;
-            background-color: rgb(109, 181, 244);
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>Random Dogs</h1>
+    <h1>Dogs App</h1>
+    <span id="error"></span>
     <main>
-        <div>
-            <img alt="Dogs images" class="dog-img">
-            <img alt="Dogs images" class="dog-img">
-            <img alt="Dogs images" class="dog-img">
-        </div>
-        <button class="random-btn">Show me random dogs!</button>
+        <section>
+            <h2>Random Dogs</h2>
+            <div class="random-images-container">
+                <article>
+                    <img alt="Dogs images" class="dog-img">
+                    <button id="likeBtn1" class="like-btn">❤️</button>
+                </article>
+                <article>
+                    <img alt="Dogs images" class="dog-img">
+                    <button class="like-btn">❤️</button>
+                </article>
+                <article>
+                    <img alt="Dogs images" class="dog-img">
+                    <button class="like-btn">❤️</button>
+                </article>
+                <article>
+                    <img alt="Dogs images" class="dog-img">
+                    <button class="like-btn">❤️</button>
+                </article>
+            </div>
+            <button class="random-btn">Show me random dogs!</button>
+        </section>
+        <section class="fav-images">
+            <h2>Your Favorite Dogs</h2>
+        </section>
     </main>
     <script src="./main.js"></script>
 </body>

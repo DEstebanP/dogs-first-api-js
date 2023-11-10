@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1 {
+    text-align: center;
+}
+main .random-images-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    justify-items: center;
+    width: 100%;
+    max-height: 320px;
+}
+.random-images-container article {
+    width: 80%;
+    max-width: 280px;
+    height: 80%;
+    max-height: 280px;
+}
+img {
+    width: 100%;
+    height: 100%;
+    max-height: 280px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.random-btn {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 40px;
+    margin-top: 30px;
+    border-radius: 8px;
+    background-color: rgb(109, 181, 244);
+}
