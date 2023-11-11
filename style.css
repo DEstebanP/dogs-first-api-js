@@ -4,7 +4,7 @@ body {
 h1 {
     text-align: center;
 }
-main .random-images-container {
+main .images-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: 1fr;
@@ -12,7 +12,7 @@ main .random-images-container {
     width: 100%;
     max-height: 320px;
 }
-.random-images-container article {
+.images-container article {
     width: 80%;
     max-width: 280px;
     height: 80%;

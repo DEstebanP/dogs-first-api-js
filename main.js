@@ -4,7 +4,11 @@ const spanError = document.getElementById("error");
 
 const likeBtns = document.querySelectorAll(".like-btn");
 for (const likeBtn of likeBtns) {
-    likeBtn.onclick = saveDogFavorites;
+    likeBtn.onclick = (event) => {
+        const eventBtn = event.currentTarget;
+        const imageId = eventBtn.parentNode.id;
+        saveDogFavorites(imageId);
+    };
 }
 
 const API = "https://api.thedogapi.com/v1/";
@@ -29,33 +33,87 @@ async function getDogImage() {
     for (let i = 0; i < imgs.length; i++) {
         const element = imgs[i];
         element.src = dataObj[i].url;
+        element.parentNode.id = dataObj[i].id;
     }
-    return dataObj
 }
 async function getDogFavorites() {
-    const dataObj = await fetchData(`${API}favourites?${API_KEY}`);
-    console.log(dataObj);
+    try {
+        const favoritesObj = await fetchData(`${API}favourites?${API_KEY}`);
+        const section = document.querySelector(".fav-images .images-container");
+        console.log(favoritesObj);
+        for (const favorite of favoritesObj) {
+            const article = document.createElement('article');
+            const img = document.createElement('img');
+            img.src = favorite.image.url;
+            img.classList.add('dog-img');
+            const btn = document.createElement('button');
+            btn.classList.add('delete-btn');
+            btn.innerText = "Delete";
+
+            btn.onclick = () => deleteDogFavorites(favorite.id);
+
+            article.append(img, btn);
+
+            section.appendChild(article);
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-async function saveDogFavorites() {
+async function saveDogFavorites(id) {
     try {
-        const response = await fetch(`${API}favourites?${API_KEY}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', 
-            },
-            body: JSON.stringify({
-                'image_id': 'ryPgVl5N7'
-            }),
-        });
+        const favoritesObj = await fetchData(`${API}favourites?${API_KEY}`);
+        const isSaved = favoritesObj.some((element) => {return element.image.id == id});
+        
+        if (isSaved) {
+            spanError.innerText = "Esta foto ya fue agregada a tus favoritos"
+        } else {
+            const response = await fetch(`${API}favourites?${API_KEY}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', 
+                },
+                body: JSON.stringify({
+                    'image_id': id
+                }),
+            });
     
-        const data = await response.json();
-        console.log(data);
-        console.log(response);
-        if (response.status != 200) throw data.message;
+            // Render fav images 
+            renderFavorites();
+            getDogFavorites();
+    
+            const data = await response.json();
+            console.log(data);
+            console.log(response);
+            if (response.status != 200) throw data.message;
+            spanError.innerText = "";
+        }
     } catch (err) {
         console.log(err);
         spanError.innerText = `Lo sentimos hubo un error ${err}`;
+    }
+}
+function renderFavorites() {
+    const section = document.querySelector(".fav-images .images-container");
+    while (section.firstChild) {
+        section.removeChild(section.firstChild);
+    }
+}
+async function deleteDogFavorites(id) {
+    try {
+        console.log(id);
+        const response = await fetch(`${API}favourites/${id}?${API_KEY}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json', 
+            },
+        });
+        renderFavorites();
+        getDogFavorites();
+    } catch(err) {
+        console.log(err);
     }
 }
 getDogImage();
