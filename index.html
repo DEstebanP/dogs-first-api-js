@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Dogs</title>
+    <script src="https://kit.fontawesome.com/7dae4b2213.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -32,6 +33,17 @@
             </div>
             <button class="random-btn">Show me random dogs!</button>
         </section>
+        <section class="form-container">
+            <h2>Upload your Photo</h2>
+            <form id="uploading-photo">
+                <input type="file" id="file-dog" class="input-file" name="file" onchange="previewImage()" accept=".jpg, .png">
+                <label for="file-dog" class="custom-file-upload">
+                    <i class="fa fa-cloud-upload"></i> Subir Archivo
+                </label>
+                <img id="image-preview">
+                <button type="button" class="submit-photo" onclick="uploadingDogPhoto()"> Sent your Dog photo</button>
+            </form>
+        </section>
         <section class="fav-images">
             <h2>Your Favorite Dogs</h2>
             <div class="images-container">
@@ -39,6 +51,7 @@
             </div>
         </section>
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="./main.js"></script>
 </body>
 </html>
